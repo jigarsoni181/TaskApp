@@ -1,0 +1,39 @@
+.todo_container{
+    display: flex;
+    box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
+    padding: 1rem;
+    border-radius: 0.5rem;
+    justify-content: space-between;
+    .title {
+        text-transform: capitalize;
+        font-weight: bold;
+       
+    }   
+    .status{
+        box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
+        color: white;
+        text-transform: uppercase;
+        padding: 0.5rem 0.3rem;
+        border-radius: 0.5rem;
+        cursor: pointer;
+        &.completed{
+            background-color: green;
+        }
+        &.incomplete{
+            background-color: red;
+        }
+    } 
+    .status_container{
+        display: flex;
+        gap: 1rem;
+    .delete {
+        box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
+        color: white;
+        text-transform: uppercase;
+        padding: 0.5rem 0.3rem;
+        border-radius: 0.5rem;
+        cursor: pointer;
+        background-color: grey;
+    }
+    }
+}
