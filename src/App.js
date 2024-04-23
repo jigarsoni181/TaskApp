@@ -1,41 +1,57 @@
 import logo from './logo.svg';
-import './App.css';
+import './App.scss';
 import axios from 'axios';
-import {useState} from 'react'
+import {useEffect, useState} from 'react'
+import IndividualTodo from './component/IndividualTodo';
+import AddAndEditForm from './component/AddAndEditForm';
 
  function App() {
 
   const [todos, setTodos] = useState([])
+  const [addTodoSelected , setAddToDoSelected] = useState(false);
 
-  const getData = () => {
+  useEffect(()=>{
     fetch('https://jsonplaceholder.typicode.com/todos')
     .then((response) => response.json())
     .then((data) => {
-      // console.log("Data==>", JSON.stringify(data));
       setTodos(data)
     }).catch((err) => {
       console.log(err)
+    })},[ ])
+   const toggleStatusToUpdate = (todoId) => {
+    const updatedToggledTodo = todos?.map((individualTodo)=> {
+      if(individualTodo.id == todoId) {
+        return {
+          ...individualTodo , completed:!individualTodo.completed
+        }
+      }
+      return individualTodo;
     })
-  }
-
+    setTodos(updatedToggledTodo)
+   }
+   const deleteTodo = (id)=>{
+    const remainingTodos = todos?.filter((individualTodo) => individualTodo?.id != id);
+    setTodos(remainingTodos)
+   }
   
   return (
+   <> 
     <div className="App">
-      <h1>Task Application</h1>
-      <button onClick={getData} style={{marginBottom: "50px"}}>Click me for Task List</button>
-        <table style={{width: "600px", margin: "auto", border: "1px solid black", borderCollapse:"collapse"}}>
-        {todos.map((todo) => {
-          return(
-            
-              <tr key={todo.id}>
-                <td style={{border: "1px solid black", borderCollapse:"collapse"}}>{todo.title}</td>
-              </tr>
-            
-          )
-        })
-        }
-        </table>
+      <div className='header_addButton'>
+        <h1>Your todo list</h1>
+        <button className='add_todo_btn' onClick={()=>setAddToDoSelected(true)}>ADD TODO</button>
+      </div>
+      <div className='todoContainer'>
+      {
+        todos?.map((todoData)=> <IndividualTodo key={todoData?.id} todoData={todoData} toggleStatusToUpdate={toggleStatusToUpdate} deleteTodo={deleteTodo}/>)
+      }
+      </div>
+      
     </div>
+    {
+      addTodoSelected && <AddAndEditForm setAddToDoSelected={setAddToDoSelected} todos={todos} setTodos={setTodos}/>
+    }
+    </>
   );
 }
 

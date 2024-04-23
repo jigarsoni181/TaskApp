@@ -1,0 +1,39 @@
+.AddAndEditFormContainer {
+    display: flex;
+    position: fixed;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    justify-content: center;
+    align-items: center;
+    opacity: 0.5;
+    background-color: black;
+
+    .addAndEditForm{
+        opacity: 1;
+        width: 34rem;
+        background-color: white;
+        display: flex;
+        flex-direction: column;
+        padding: 1rem;
+        gap: 1rem;
+        border-radius: 1rem;
+        .textInput{
+            padding: 0.3rem;
+            border-radius: 0.3rem;
+        }
+        .button_container{
+            display: flex;
+            justify-content: center;
+            gap: 2rem;
+            color: white;
+            .save {
+                background-color: green;
+            }
+            .close{
+                background-color: red;
+            }
+        }
+    }
+}
